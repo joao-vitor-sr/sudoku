@@ -1,7 +1,7 @@
-#include <iostream>
 #include "src/game.cpp"
 
-int main(void) {
+int main(void)
+{
   // starting the gmae
   Game game;
   game.startGame();
