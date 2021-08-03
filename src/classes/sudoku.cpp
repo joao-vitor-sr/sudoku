@@ -1,6 +1,14 @@
 #include <iostream>
 
 class Sudoku {
+  private:
+  char getCharacterOfLine(unsigned short indexLine)
+  {
+    char characterLines[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
+
+    return characterLines[indexLine];
+  }
+
   public:
   unsigned short board[9][9] = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 },
     { 6, 0, 0, 1, 9, 5, 0, 0, 0 },
@@ -14,8 +22,10 @@ class Sudoku {
 
   void displayBoard(void)
   {
+    std::cout << "  0 1 2 3 4 5 6 7 8" << std::endl;
     for (unsigned short indexLine = 0; indexLine < 9; indexLine++) {
-      std::cout << " - - - - - - - - -" << std::endl;
+      std::cout << "  - - - - - - - - -" << std::endl;
+      std::cout << getCharacterOfLine(indexLine) << " ";
       for (unsigned short indexSqure = 0; indexSqure < 9; indexSqure++) {
         if (board[indexLine][indexSqure] == 0) {
           std::cout << "| ";
