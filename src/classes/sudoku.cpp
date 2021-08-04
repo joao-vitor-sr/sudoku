@@ -4,12 +4,27 @@ class Sudoku {
   private:
   char getCharacterOfLine(unsigned short indexLine)
   {
-    char characterLines[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
-
-    return characterLines[indexLine];
+    return linesCharacters[indexLine];
   }
 
   public:
+  bool validateInput(char lineCharacrter, unsigned short squareIndex)
+  {
+    if (squareIndex < 9 && squareIndex != 0) {
+      return true;
+    }
+
+    for (unsigned short index = 0; index < 9; index++) {
+      if (linesCharacters[index] == lineCharacrter) {
+        return true;
+        break;
+      }
+    }
+
+    return false;
+  }
+
+  char linesCharacters[9] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
   unsigned short board[9][9] = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 },
     { 6, 0, 0, 1, 9, 5, 0, 0, 0 },
     { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
