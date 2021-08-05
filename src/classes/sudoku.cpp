@@ -4,7 +4,40 @@ class Sudoku {
   private:
   char getCharacterOfLine(unsigned short indexLine)
   {
-    return linesCharacters[indexLine];
+    for (unsigned short index = 0; index < 9; index++) {
+      if (character == linesCharacters[index]) {
+        return index;
+      }
+    }
+
+    return 0;
+  }
+
+  bool validateIfSquareIsPossible(unsigned short indexLine, unsigned short squareIndex, unsigned short number)
+  {
+    // validating line
+    for (unsigned short index = 0; index < 9; index++) {
+      if (board[indexLine][index] == number) {
+        return false;
+      }
+
+      if (board[index][squareIndex] == number) {
+        return false;
+      }
+    }
+
+    unsigned short lineIndexZero = (indexLine / 3) * 3;
+    unsigned short squareIndexZero = (squareIndex / 3) * 3;
+
+    for (unsigned short indexLine = 0; indexLine < 3; indexLine++) {
+      for (unsigned short indexColumn = 0; indexColumn < 3; indexColumn++) {
+        if (board[lineIndexZero + indexLine][squareIndexZero + indexColumn] == number) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 
   public:
