@@ -6,9 +6,31 @@
 #include <string>
 
 class Game {
+  std::string commandList[5] = {
+    "exit",
+    "edit",
+    "add",
+    "remove",
+    "display board"
+  };
+
   private:
-  void displayHowToPlay(void)
+  void
+  displayCommands(void)
   {
+    std::cout << "\n"
+              << "*** Commands ***" << std::endl;
+
+    unsigned short alreadyWasFourItems = 0;
+    for (unsigned short indexCommands = 0; indexCommands < 5; indexCommands++) {
+      std::cout << "  " << indexCommands << ": " << commandList[indexCommands] << "\t";
+
+      if (alreadyWasFourItems == 3) {
+        std::cout << "\n";
+      }
+
+      alreadyWasFourItems++;
+    }
   }
 
   public:
