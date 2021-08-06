@@ -99,17 +99,34 @@ class Sudoku {
 
   void displayBoard(void)
   {
-    std::cout << "   0 1 2 3 4 5 6 7 8" << std::endl;
+    std::cout << "    0 1 2  3 4 5  6 7 8\n"
+              << std::endl;
+
+    unsigned short blockSquare = 0;
+    unsigned short lineBlock = 0;
+
     for (unsigned short indexLine = 0; indexLine < 9; indexLine++) {
-      std::cout << "   - - - - - - - - -" << std::endl;
-      std::cout << linesCharacters[indexLine] << " ";
+
+      std::cout << linesCharacters[indexLine] << "  ";
+
       for (unsigned short indexSqure = 0; indexSqure < 9; indexSqure++) {
-        if (board[indexLine][indexSqure] == 0) {
-          std::cout << "| ";
+        if (blockSquare == 2) {
+          std::cout << " " << board[indexLine][indexSqure] << " ";
+          blockSquare = 0;
           continue;
         }
-        std::cout << "|" << board[indexLine][indexSqure];
+
+        blockSquare = blockSquare + 1;
+        std::cout << " " << board[indexLine][indexSqure];
       }
+
+      if (lineBlock == 2) {
+        std::cout << "\n\n";
+        lineBlock = 0;
+        continue;
+      }
+
+      lineBlock = lineBlock + 1;
       std::cout << "\n";
     }
   }
