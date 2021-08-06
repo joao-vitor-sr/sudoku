@@ -51,6 +51,20 @@ class Sudoku {
   }
 
   public:
+  bool validateIfGameEnd(void)
+  {
+
+    for (unsigned short indexLine = 0; indexLine < 9; indexLine++) {
+      for (unsigned short indexColumn = 0; indexColumn < 9; indexColumn++) {
+        if (board[indexLine][indexColumn] == 0) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
   bool validateInput(char lineCharacrter, unsigned short squareIndex)
   {
     if (squareIndex < 9 && squareIndex != 0) {
