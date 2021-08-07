@@ -1,6 +1,5 @@
 #include "classes/sudoku.cpp"
 #include <cctype>
-#include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -13,6 +12,7 @@ class Game {
     "remove",
     "display board"
   };
+  Sudoku sudoku;
 
   private:
   void
@@ -33,62 +33,56 @@ class Game {
     }
   }
 
+  bool executeAMethodByINput(std::string& input)
+  {
+    unsigned short optionSelected;
+    std::stringstream(input) >> optionSelected;
+
+    switch (optionSelected) {
+    case 0:
+      return false;
+      break;
+    case 1:
+      editSquareAtBoard();
+      return true;
+      break;
+    case 2:
+      return true;
+      break;
+    case 3:
+      removeSquare();
+      return true;
+      break;
+    case 4:
+      std::cout << std::endl;
+      sudoku.displayBoard();
+      return true;
+      break;
+    default:
+      return false;
+      break;
+    }
+  }
+
   public:
   void startGame(void)
   {
     bool gameIsRunning = true;
 
-    Sudoku sudokuGame;
-
-    std::cout << "Welcome to the sudoku based in command line interface" << std::endl;
-
     do {
-      sudokuGame.displayBoard();
+      displayCommands();
 
-      // === Line ===
-      std::string inputOfUserLine;
-      char lineSelected;
+      // === Option ===
+      std::string optionSelectedInput;
       std::cout << "\n"
-                << "The line letter : ";
-      getline(std::cin, inputOfUserLine);
-      std::stringstream(inputOfUserLine) >> lineSelected;
-      lineSelected = std::toupper(lineSelected);
+                << "What now> ";
+      getline(std::cin, optionSelectedInput);
 
-      // === Column ===
-      unsigned short squareSelected;
-      std::string inputOfUserSquare;
-      std::cout << "\n"
-                << "The square number : ";
-      getline(std::cin, inputOfUserSquare);
-      std::stringstream(inputOfUserSquare) >> squareSelected;
-
-      // validating if all inputs are right
-      if (!sudokuGame.validateInput(lineSelected, squareSelected)) {
-        std::cout << "\n"
-                  << "Invalid input" << std::endl;
-        break;
-      }
-
-      // === Value ===
-      unsigned short valueOfSquare;
-      std::string inputOfUserSquareValue;
-      std::cout << "\n"
-                << "The value : ";
-      getline(std::cin, inputOfUserSquareValue);
-      std::stringstream(inputOfUserSquareValue) >> valueOfSquare;
-
-      if (!sudokuGame.selectSquare(lineSelected, squareSelected, valueOfSquare)) {
-        std::cout << "Invalid movement" << std::endl;
+      if (!executeAMethodByINput(optionSelectedInput)) {
         gameIsRunning = false;
         break;
       }
 
-      if (sudokuGame.validateIfGameEnd()) {
-        std::cout << "Congratulations you win the game" << std::endl;
-        break;
-      }
-
-      system("clear");
     } while (gameIsRunning);
   }
 };
