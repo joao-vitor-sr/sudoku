@@ -1,6 +1,7 @@
 #include <iostream>
 
 class Sudoku {
+  char linesCharacters[9] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
   unsigned short board[9][9] = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 },
     { 6, 0, 0, 1, 9, 5, 0, 0, 0 },
     { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
@@ -51,6 +52,21 @@ class Sudoku {
   }
 
   public:
+  bool removeSquare(char lineCharacrter, unsigned short squareIndex)
+  {
+    unsigned short lineIndex = returnIndexOfCharacter(lineCharacrter);
+
+    // validating if the input is valid
+    if (squareIndex < 9 || !lineIndex) {
+      return true;
+    }
+
+    // removing the squareIndex
+    board[lineIndex][squareIndex] = 0;
+
+    return false;
+  }
+
   bool validateIfGameEnd(void)
   {
 
@@ -94,8 +110,6 @@ class Sudoku {
 
     return true;
   }
-
-  char linesCharacters[9] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
 
   void displayBoard(void)
   {
