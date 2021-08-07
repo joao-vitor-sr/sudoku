@@ -15,6 +15,89 @@ class Game {
   Sudoku sudoku;
 
   private:
+  void addSquare(void)
+  {
+    return;
+  }
+  void removeSquare()
+  {
+    std::cout << "\n"
+              << "*** remove square ***" << std::endl;
+
+    // Line
+    std::string inputLine;
+    char line;
+
+    std::cout << "Line> ";
+    getline(std::cin, inputLine);
+    std::stringstream(inputLine) >> line;
+    line = std::toupper(line);
+
+    // Square
+    std::cout << "\n"
+              << "Square> ";
+    std::string inputSquare;
+    unsigned short square;
+
+    getline(std::cin, inputSquare);
+    std::stringstream(inputSquare) >> square;
+
+    if (sudoku.removeSquare(line, square)) {
+      std::cout << "\n"
+                << "Invalid movement" << std::endl;
+      return;
+    }
+
+    return;
+  }
+
+  void editSquareAtBoard(void)
+  {
+    std::cout << "\n"
+              << "*** update square ***" << std::endl;
+
+    // Line
+    std::string inputLine;
+    char line;
+
+    std::cout << "Line> ";
+    getline(std::cin, inputLine);
+    std::stringstream(inputLine) >> line;
+    line = std::toupper(line);
+
+    // Square
+    std::cout << "\n"
+              << "Square> ";
+    std::string inputSquare;
+    unsigned short square;
+
+    getline(std::cin, inputSquare);
+    std::stringstream(inputSquare) >> square;
+
+    if (sudoku.removeSquare(line, square)) {
+      std::cout << "\n"
+                << "Invalid movement" << std::endl;
+      return;
+    }
+
+    // New value
+    std::cout << "\n"
+              << "Square> ";
+    std::string inputNewValue;
+    unsigned short value;
+
+    getline(std::cin, inputNewValue);
+    std::stringstream(inputNewValue) >> value;
+
+    if (!sudoku.selectSquare(line, square, value)) {
+      std::cout << "\n"
+                << "Invalid value" << std::endl;
+      return;
+    }
+
+    return;
+  }
+
   void
   displayCommands(void)
   {
