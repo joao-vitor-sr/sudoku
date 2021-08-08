@@ -17,8 +17,47 @@ class Game {
   private:
   void addSquare(void)
   {
+    std::cout << "\n"
+              << "*** add square ***" << std::endl;
+
+    std::string inputLine;
+    char line;
+
+    std::cout << "Line> ";
+    getline(std::cin, inputLine);
+    std::stringstream(inputLine) >> line;
+    line = std::toupper(line);
+
+    // Square
+    std::cout << "\n"
+              << "Square> ";
+    std::string inputSquare;
+    unsigned short square;
+
+    getline(std::cin, inputSquare);
+    std::stringstream(inputSquare) >> square;
+
+    if (!sudoku.validateInput(line, square)) {
+      std::cout << "Invalid Movement" << std::endl;
+    }
+
+    // value
+    std::cout << "\n"
+              << "Value> ";
+    std::string inputValue;
+    unsigned short value;
+
+    getline(std::cin, inputValue);
+    std::stringstream(inputValue) >> value;
+
+    if (!sudoku.selectSquare(line, square, value)) {
+      std::cout << "\n"
+                << "This is square is invalid" << std::endl;
+    }
+
     return;
   }
+
   void removeSquare()
   {
     std::cout << "\n"
@@ -130,6 +169,7 @@ class Game {
       return true;
       break;
     case 2:
+      addSquare();
       return true;
       break;
     case 3:
