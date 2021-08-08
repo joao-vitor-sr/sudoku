@@ -155,7 +155,7 @@ class Game {
     }
   }
 
-  bool executeAMethodByINput(std::string& input)
+  bool executeAMethodByInput(std::string& input)
   {
     unsigned short optionSelected;
     std::stringstream(input) >> optionSelected;
@@ -201,7 +201,15 @@ class Game {
                 << "What now> ";
       getline(std::cin, optionSelectedInput);
 
-      if (!executeAMethodByINput(optionSelectedInput)) {
+      if (!executeAMethodByInput(optionSelectedInput)) {
+        gameIsRunning = false;
+        break;
+      }
+
+      // validating if the game is ended
+      if (sudoku.validateIfGameEnd()) {
+        std::cout << "\n"
+                  << "Congratulations you win the game" << std::endl;
         gameIsRunning = false;
         break;
       }
