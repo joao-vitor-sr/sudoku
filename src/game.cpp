@@ -1,16 +1,18 @@
 #include "classes/sudoku.cpp"
 #include <cctype>
+#include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <string>
 
 class Game {
-  std::string commandList[5] = {
+  std::string commandList[6] = {
     "exit",
     "edit",
     "add",
     "remove",
-    "display board"
+    "display board",
+    "clear screen"
   };
   Sudoku sudoku;
 
@@ -144,7 +146,7 @@ class Game {
               << "*** Commands ***" << std::endl;
 
     unsigned short alreadyWasFourItems = 0;
-    for (unsigned short indexCommands = 0; indexCommands < 5; indexCommands++) {
+    for (unsigned short indexCommands = 0; indexCommands < 6; indexCommands++) {
       std::cout << "  " << indexCommands << ": " << commandList[indexCommands] << "\t";
 
       if (alreadyWasFourItems == 3) {
@@ -180,6 +182,10 @@ class Game {
       std::cout << std::endl;
       sudoku.displayBoard();
       return true;
+    case 5:
+      std::system("clear");
+      return true;
+      break;
       break;
     default:
       return false;
