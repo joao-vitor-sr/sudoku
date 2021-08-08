@@ -57,7 +57,7 @@ class Sudoku {
     unsigned short lineIndex = returnIndexOfCharacter(lineCharacrter);
 
     // validating if the input is valid
-    if (squareIndex < 9 || !lineIndex) {
+    if (squareIndex >= 9) {
       return true;
     }
 
@@ -83,7 +83,7 @@ class Sudoku {
 
   bool validateInput(char lineCharacrter, unsigned short squareIndex)
   {
-    if (squareIndex < 9 && squareIndex != 0) {
+    if (squareIndex < 9) {
       return true;
     }
 
@@ -102,7 +102,6 @@ class Sudoku {
 
     unsigned short lineIndex = returnIndexOfCharacter(lineCharacrter);
     if (!validateIfSquareIsPossible(lineIndex, squareIndex, value)) {
-      std::cout << "string" << std::endl;
       return false;
     }
 
