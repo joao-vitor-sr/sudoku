@@ -1,16 +1,13 @@
+#include <algorithm>
+#include <bits/stdc++.h>
+#include <chrono>
+#include <cstdlib>
 #include <iostream>
+#include <vector>
 
 class Sudoku {
   char linesCharacters[9] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
-  unsigned short board[9][9] = { { 5, 3, 0, 0, 7, 0, 0, 0, 0 },
-    { 6, 0, 0, 1, 9, 5, 0, 0, 0 },
-    { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
-    { 8, 0, 0, 0, 6, 0, 0, 0, 3 },
-    { 4, 0, 0, 8, 0, 3, 0, 0, 1 },
-    { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
-    { 0, 6, 0, 0, 0, 0, 2, 8, 0 },
-    { 0, 0, 0, 4, 1, 9, 0, 0, 5 },
-    { 0, 0, 0, 0, 8, 0, 0, 7, 9 } };
+  unsigned short board[9][9];
 
   private:
   unsigned short returnIndexOfCharacter(char character)
@@ -52,6 +49,35 @@ class Sudoku {
   }
 
   public:
+  void generateBoard(void)
+  {
+    std::array<unsigned short, 9> numbersList { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    short unsigned numberOfNumberrListArray = sizeof(numbersList) / sizeof(numbersList[0]);
+    for (unsigned short indexLine = 0; indexLine < 9; indexLine++) {
+
+      unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+      std::shuffle(numbersList.begin(), numbersList.end(), std::default_random_engine(seed));
+
+      /* std::random_shuffle(numbersList.begin(), numbersList.end()); */
+
+      for (unsigned short indexSquare = 0; indexSquare < 9; indexSquare++) {
+        if (!validateIfSquareIsPossible(indexLine, indexSquare, numbersList[indexSquare])) {
+          indexSquare = 0;
+          // just one more loop to removee the current line
+          for (unsigned short indexSquareToRemove = 0; indexSquareToRemove < 9; indexSquareToRemove++) {
+            board[indexLine][indexSquareToRemove] = 0;
+          }
+
+          --indexLine;
+          break;
+        }
+
+        board[indexLine][indexSquare] = numbersList[indexSquare];
+      }
+    }
+  }
+
   bool removeSquare(char lineCharacrter, unsigned short squareIndex)
   {
     unsigned short lineIndex = returnIndexOfCharacter(lineCharacrter);
