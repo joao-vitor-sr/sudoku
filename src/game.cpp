@@ -6,17 +6,48 @@
 #include <string>
 
 class Game {
-  std::string commandList[6] = {
+  std::string commandList[7] = {
     "exit",
     "edit",
     "add",
     "remove",
     "display board",
-    "clear screen"
+    "clear screen",
+    "tip"
   };
   Sudoku sudoku;
 
   private:
+  void getTip(void) {
+    std::cout << "\n"
+              << "*** add square ***" << std::endl;
+
+    std::string inputLine;
+    char line;
+
+    std::cout << "Line> ";
+    getline(std::cin, inputLine);
+    std::stringstream(inputLine) >> line;
+    line = std::toupper(line);
+
+    // Square
+    std::cout << "\n"
+              << "Square> ";
+    std::string inputSquare;
+    unsigned short square;
+
+    getline(std::cin, inputSquare);
+    std::stringstream(inputSquare) >> square;
+
+    if (!sudoku.validateInput(line, square)) {
+      std::cout << "Invalid Movement" << std::endl;
+    }
+
+
+    sudoku.getValueFromOriginalBoard(line, square);
+    return;
+  }
+
   void addSquare(void)
   {
     std::cout << "\n"
@@ -146,7 +177,7 @@ class Game {
               << "*** Commands ***" << std::endl;
 
     unsigned short alreadyWasFourItems = 0;
-    for (unsigned short indexCommands = 0; indexCommands < 6; indexCommands++) {
+    for (unsigned short indexCommands = 0; indexCommands < 7; indexCommands++) {
       std::cout << "  " << indexCommands << ": " << commandList[indexCommands] << "\t";
 
       if (alreadyWasFourItems == 3) {
@@ -184,6 +215,11 @@ class Game {
       return true;
     case 5:
       std::system("clear");
+      return true;
+      break;
+      break;
+    case 6:
+      getTip();
       return true;
       break;
       break;
