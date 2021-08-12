@@ -2,12 +2,15 @@
 #include <bits/stdc++.h>
 #include <chrono>
 #include <cstdlib>
+#include <ctime>
 #include <iostream>
+#include <random>
 #include <vector>
 
 class Sudoku {
   char linesCharacters[9] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
   unsigned short board[9][9];
+  unsigned short originalBoard[9][9];
 
   private:
   unsigned short returnIndexOfCharacter(char character)
@@ -48,8 +51,7 @@ class Sudoku {
     return true;
   }
 
-  public:
-  void generateBoard(void)
+  void generateOriginalBoard(void)
   {
     std::array<unsigned short, 9> numbersList { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     short unsigned numberOfNumberrListArray = sizeof(numbersList) / sizeof(numbersList[0]);
@@ -59,13 +61,13 @@ class Sudoku {
 
       std::shuffle(numbersList.begin(), numbersList.end(), std::default_random_engine(seed));
 
-      /* std::random_shuffle(numbersList.begin(), numbersList.end()); */
-
       for (unsigned short indexSquare = 0; indexSquare < 9; indexSquare++) {
         if (!validateIfSquareIsPossible(indexLine, indexSquare, numbersList[indexSquare])) {
           indexSquare = 0;
-          // just one more loop to removee the current line
+
+          // just one more loop to remove the current line
           for (unsigned short indexSquareToRemove = 0; indexSquareToRemove < 9; indexSquareToRemove++) {
+            originalBoard[indexLine][indexSquareToRemove] = 0;
             board[indexLine][indexSquareToRemove] = 0;
           }
 
@@ -73,8 +75,33 @@ class Sudoku {
           break;
         }
 
+        originalBoard[indexLine][indexSquare] = numbersList[indexSquare];
         board[indexLine][indexSquare] = numbersList[indexSquare];
       }
+    }
+  }
+
+  public:
+  void generateBoard(void)
+  {
+    generateOriginalBoard();
+
+    unsigned short difficult = 42;
+
+    std::srand(std::time(0));
+
+    for (unsigned short index = 0; index < difficult; index++) {
+      unsigned short indexLineToRemove = (std::rand() % 9);
+      unsigned short indexSquareToRemove = (std::rand() % 9);
+
+      // validating if already is not empty
+      if (board[indexLineToRemove][indexSquareToRemove] == 0 || !board[indexLineToRemove][indexSquareToRemove]) {
+        index--;
+        std::cout << "string" << std::endl;
+        continue;
+      }
+
+      board[indexLineToRemove][indexSquareToRemove] = 0;
     }
   }
 
