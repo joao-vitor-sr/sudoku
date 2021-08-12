@@ -97,7 +97,6 @@ class Sudoku {
       // validating if already is not empty
       if (board[indexLineToRemove][indexSquareToRemove] == 0 || !board[indexLineToRemove][indexSquareToRemove]) {
         index--;
-        std::cout << "string" << std::endl;
         continue;
       }
 
@@ -154,7 +153,7 @@ class Sudoku {
   {
 
     unsigned short lineIndex = returnIndexOfCharacter(lineCharacrter);
-    if (!validateIfSquareIsPossible(lineIndex, squareIndex, value)) {
+    if (originalBoard[lineIndex][squareIndex] != value) {
       return false;
     }
 
