@@ -198,6 +198,8 @@ class Game {
   {
     bool gameIsRunning = true;
 
+    sudoku.generateBoard();
+
     do {
       displayCommands();
 
