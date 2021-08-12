@@ -18,4 +18,4 @@ fill a 9x9 grid.
   - NOTE: You may have to run this as root.
 
 ### Usage
-Run Sudoku in your terminal
+Run sudoku in your terminal
