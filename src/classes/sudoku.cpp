@@ -162,6 +162,12 @@ class Sudoku {
     return true;
   }
 
+  void getValueFromOriginalBoard(char lineCharacrter, unsigned short squareIndex)
+  {
+    unsigned short lineIndex = returnIndexOfCharacter(lineCharacrter);
+    board[lineIndex][squareIndex] = originalBoard[lineIndex][squareIndex];
+  }
+
   void displayBoard(void)
   {
     std::cout << "    0 1 2  3 4 5  6 7 8\n"
