@@ -1,4 +1,4 @@
-#include "classes/sudoku.cpp"
+#include "./sudoku.cpp"
 #include <cctype>
 #include <cstdlib>
 #include <iostream>
